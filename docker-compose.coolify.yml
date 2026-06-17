@@ -16,6 +16,6 @@ services:
     command:
       - sh
       - -c
-      - "H=/opt/hermes/bin/hermes; "$H" config set model.provider gemini || true; "$H" config set model.default gemini-3.5-flash || true; "$H" gateway run; echo GATEWAY_STOPPED rc=$?; sleep 3600"
+      - "/opt/hermes/bin/hermes config set model.provider gemini || true; /opt/hermes/bin/hermes config set model.default gemini-3.5-flash || true; /opt/hermes/bin/hermes gateway run; echo GATEWAY_STOPPED rc=$?; sleep 3600"
 volumes:
   hermes_data:
