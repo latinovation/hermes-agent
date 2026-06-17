@@ -15,7 +15,7 @@ services:
       - GEMINI_API_KEY=${GEMINI_API_KEY}
     command:
       - sh
-      - -lc
-      - "hermes config set model.provider gemini || true; hermes config set model.default gemini-3.5-flash || true; hermes gateway run; echo GATEWAY_STOPPED rc=$?; sleep 3600"
+      - -c
+      - "H=/opt/hermes/bin/hermes; "$H" config set model.provider gemini || true; "$H" config set model.default gemini-3.5-flash || true; "$H" gateway run; echo GATEWAY_STOPPED rc=$?; sleep 3600"
 volumes:
   hermes_data:
