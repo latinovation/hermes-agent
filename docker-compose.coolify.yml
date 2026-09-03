@@ -1,7 +1,8 @@
 services:
   gateway:
-    build: .
-    image: hermes-agent
+    # Imagen oficial publicada por NousResearch (Docker Hub), pinneada por tag.
+    # Antes se construía desde este repo (build: .); el código del fork ya no se usa.
+    image: nousresearch/hermes-agent:v2026.8.31
     container_name: hermes
     restart: unless-stopped
     volumes:
@@ -10,12 +11,13 @@ services:
       - HERMES_UID=10000
       - HERMES_GID=10000
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
-      - GATEWAY_ALLOW_ALL_USERS=true
+      # Allowlist explícita (IDs numéricos separados por coma). Sin GATEWAY_ALLOW_ALL_USERS.
+      - TELEGRAM_ALLOWED_USERS=${TELEGRAM_ALLOWED_USERS}
       - GOOGLE_API_KEY=${GOOGLE_API_KEY}
       - GEMINI_API_KEY=${GEMINI_API_KEY}
     command:
       - sh
       - -c
-      - "/opt/hermes/bin/hermes config set model.provider gemini || true; /opt/hermes/bin/hermes config set model.default gemini-3.5-flash || true; /opt/hermes/bin/hermes gateway run; echo GATEWAY_STOPPED rc=$?; sleep 3600"
+      - "/opt/hermes/bin/hermes config set model.provider gemini || true; /opt/hermes/bin/hermes config set model.default gemini-3.5-flash || true; /opt/hermes/bin/hermes config set model.base_url https://generativelanguage.googleapis.com/v1beta || true; exec /opt/hermes/bin/hermes gateway run"
 volumes:
   hermes_data:
