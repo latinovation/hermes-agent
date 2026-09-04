@@ -18,6 +18,6 @@ services:
     command:
       - sh
       - -c
-      - "/opt/hermes/bin/hermes config set model.provider gemini || true; /opt/hermes/bin/hermes config set model.default gemini-3.5-flash || true; /opt/hermes/bin/hermes config set model.base_url https://generativelanguage.googleapis.com/v1beta || true; exec /opt/hermes/bin/hermes gateway run"
+      - "/opt/hermes/bin/hermes config set model.provider gemini || true; /opt/hermes/bin/hermes config set model.default gemini-3.7-flash || true; /opt/hermes/bin/hermes config set model.base_url https://generativelanguage.googleapis.com/v1beta || true; exec /opt/hermes/bin/hermes gateway run"
 volumes:
   hermes_data:
